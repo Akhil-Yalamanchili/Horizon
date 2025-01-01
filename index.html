@@ -1,101 +1,87 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>New Horizon Research Academy - Home</title>
-
     <link rel="stylesheet" href="styles.css">
-
+    <link rel="icon" href="static/logo.png" type="image/icon type">
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 </head>
+
 <body>
-
 <div class="logoBarMain">
-    <img style="position: relative; left: 3%; height: 50px;" src="threelines.png">
-    <div class="logoBarHome">
-        Home
-    </div>
+    <img style="position: relative; left: 3%; height: 50px;" src="static/threelines.png">
+    <div class="logoBarHome">Home</div>
     <div class="logoBarLogo">
-        Logo fromwix
+        <img style="width: 70px; margin-left: 25px;" src="static/logoWname.png">
     </div>
-    <div class="logoBarProfile">
+    <div class="logoBarProfile" id="profileBtn">
         <div style="display: flex;">
-        <div style="flex-direction: column;">
-        <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;">PROFILE</p>   
-            <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+            <div style="flex-direction: column;">
+                <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;">PROFILE</p>  
+                <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+            </div>
+            <img style="width: 40px; margin-left: 25px;" src="crown-removebg-preview.png">
         </div>
-        <img style="width: 40px; margin-left: 25px;" src="crown-removebg-preview.png">
-
-    </div>
     </div>
 </div>
+
 <div class="sideBarMain">
-    
     <div class="sideBarHead">
-        <p >
-            Courses!
-        </p>
-        <input style="position: absolute; top: 50px; left:30.5%; text-align:center; width: 33.3%;" placeholder="AP Bio">
+        <p style="text-align: center;">Courses!</p>
+        <div class="dropdown">
+            <span class="dropdownbtn">Select Your Course!</span>
+            <div class="dropdownContent">
+                <a href="#">AP Bio</a>
+                <a href="#">AP Physics</a>
+                <a href="#">AP Lang</a>
+            </div>
+        </div>
     </div>
-    
-    <div class="sideBarContent">
-        <p class="unit">
-            Unit 1: <span class="unitText">A world of physics</span>
-        </p>
-            <p class="section">
-                Section 1: <span class="sectionText">Motion</span> 
-            </p>
-            <p class="section">
-                Section 2: <span class="sectionText">Acceleration</span> 
-            </p>        
-            <p class="section">
-                Section 3:  <span class="sectionText">Velocity</span> 
-            </p>        
-            <p class="section">
-                Section 4:  <span class="sectionText">Magnitude</span> 
-            </p>        
-            <p class="section">
-                Section 5:  <span class="sectionText">Distance</span> 
-            </p>        
-            <p class="section">
-                Section 6:  <span class="sectionText">Displacement</span> 
-            </p>
-        <p class="unit">
-            Unit 2:  <span class="unitText">Solving in 3D</span>
-        </p>
-            <p class="section">
-                Section 1: <span class="sectionText">Shapes on a Plane</span> 
-            </p>
-            <p class="section">
-                Section 2:  <span class="sectionText">Shapes on an Incline</span> 
-            </p>        
-            <p class="section">
-                Section 3:  <span class="sectionText">Working Friction</span> 
-            </p>        
-            <p class="section">
-                Section 4: <span class="sectionText">Solving Gravity</span> 
-            </p>        
-            <p class="section">
-                Section 5:  <span class="sectionText">Aerial Motion</span> 
-            </p>        
-            <p class="section">
-                Section 6:  <span class="sectionText">Projectile Motion</span> 
-            </p>
+   
+    <div class="sideBarContent" id="sidebar">
+        <div class="unit">
+            <p>Unit 1: <span class="unitText">A world of physics</span></p>
+            <div class="section" data-section="Motion">
+                Section 1: <span class="sectionText">Motion</span>
+            </div>
+            <div class="section" data-section="Acceleration">
+                Section 2: <span class="sectionText">Acceleration</span>
+            </div>
+            <div class="section" data-section="Velocity">
+                Section 3: <span class="sectionText">Velocity</span>
+            </div>
+        </div>
+        <div class="unit">
+            <p>Unit 2: <span class="unitText">Solving in 3D</span></p>
+            <div class="section" data-section="Shapes on a Plane">
+                Section 1: <span class="sectionText">Shapes on a Plane</span>
+            </div>
+            <div class="section" data-section="Shapes on an Incline">
+                Section 2: <span class="sectionText">Shapes on an Incline</span>
+            </div>
+            <div class="section" data-section="Working Friction">
+                Section 3: <span class="sectionText">Working Friction</span>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="contentMain">
-    <h1 > Unit 1
-    </h1>
-    <p>
-        Learn physics
-    </p>
-
+<div class="contentMain" id="contentMain">
+    <h1>Unit 1</h1>
+    <p>Learn physics</p>
+    <p>Everything with a crown is replaced by the logo once we get the file</p>
 </div>
+
+
+
 </body>
+
+<script src="scripts.js">
+
+</script>
 </html>
