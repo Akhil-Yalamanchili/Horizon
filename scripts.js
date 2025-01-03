@@ -32,7 +32,7 @@ sidebar.addEventListener("click", (e) => {
 });
 
 document.getElementById("profileBtn").addEventListener("click", () => {
-    window.location.href = "auth.html";
+    window.location.href = "login.html";
 });
 
 // Add Hover Listener for Dropdown

@@ -33,9 +33,9 @@ body {
     font-weight: 600;
     display: flex;
 }
-.logoBarHome{
+.logoBarExplore{
     position: absolute;
-    right: 80%;
+    right: 85%;
     font-size: 20px;
     font-weight: 600;
 }
