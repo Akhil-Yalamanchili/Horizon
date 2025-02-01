@@ -1,11 +1,101 @@
-document.addEventListener("DOMContentLoaded", () => {
+fetch('horizonCourseData(2024-2025).txt')
+    .then(response => response.text())
+    .then(data => {
+        const contentMain = document.getElementById("contentMain");
+        const sidebar = document.getElementById("sidebar");
+        const courseDropdown = document.querySelector(".dropdownContent");
+        const lines = data.split('\n');
+        const courses = {};
+
+        lines.forEach(line => {
+            const [course, unit, section, topic, text] = line.split(',');
+
+            if (!courses[course]) {
+                courses[course] = {};
+            }
+            if (!courses[course][unit]) {
+                courses[course][unit] = {};
+            }
+            if (!courses[course][unit][section]) {
+                courses[course][unit][section] = [];
+            }
+            courses[course][unit][section].push({ topic, text });
+        });
+
+        // Populate the course dropdown
+        Object.keys(courses).forEach(course => {
+            const courseOption = document.createElement('a');
+            courseOption.classList.add('courseOption');
+            courseOption.dataset.course = course;
+            courseOption.textContent = course;
+            courseDropdown.appendChild(courseOption);
+        });
+
+        // Event listener for course selection
+        courseDropdown.addEventListener('click', (e) => {
+            const selectedCourse = e.target.dataset.course;
+            if (selectedCourse) {
+                // Set active class on selected course
+                document.querySelectorAll('.courseOption').forEach(option => option.classList.remove('active'));
+                e.target.classList.add('active');
+
+                sidebar.innerHTML = ''; // Clear the sidebar
+                contentMain.innerHTML = ''; // Clear the main content
+
+                const units = courses[selectedCourse];
+                let unitIndex = 1;
+                Object.keys(units).forEach(unit => {
+                    // Create and append unit element in sidebar
+                    const unitElement = document.createElement('div');
+                    unitElement.classList.add('unit');
+                    unitElement.dataset.unit = unit;
+                    unitElement.innerHTML = `<p>Unit ${unitIndex}: <span class="unitText">${unit}</span></p>`;
+                    sidebar.appendChild(unitElement);
+
+                    const sections = units[unit];
+                    let sectionIndex = 1;
+                    Object.keys(sections).forEach(section => {
+                        // Create and append section element in sidebar
+                        const sectionElement = document.createElement('div');
+                        sectionElement.classList.add('section');
+                        sectionElement.dataset.section = section;
+                        sectionElement.innerHTML = `Section ${unitIndex}.${sectionIndex}: <span class="sectionText">${section}</span>`;
+                        unitElement.appendChild(sectionElement);
+
+                        sectionIndex++;
+                    });
+
+                    unitIndex++;
+                });
+            }
+        });
+
+        // Event listener for section selection
+        sidebar.addEventListener('click', (e) => {
+            const sectionElement = e.target.closest('.section');
+            if (sectionElement) {
+                const unitElement = sectionElement.closest('.unit');
+                const selectedCourse = courseDropdown.querySelector('.courseOption.active').dataset.course;
+                const selectedUnit = unitElement.dataset.unit;
+                const selectedSection = sectionElement.dataset.section;
+
+                const topics = courses[selectedCourse][selectedUnit][selectedSection];
+
+                contentMain.innerHTML = `<h1>${selectedSection}</h1>`;
+                topics.forEach(({ topic, text }) => {
+                    const topicElement = document.createElement('div');
+                    topicElement.classList.add('topic');
+                    topicElement.dataset.topic = topic;
+                    topicElement.innerHTML = `<h3>${topic}</h3><p>${text}</p>`;
+                    contentMain.appendChild(topicElement);
+                });
+            }
+        });
+    })
+    .catch(error => alert(error));
 
 // DOM Elements
-const courseDropdown = document.querySelector(".dropdownContent");
 const sidebar = document.getElementById("sidebar");
-const contentMain = document.getElementById("contentMain");
-
-// User State
 
 // Event Listeners for Course and Section Interaction
 sidebar.addEventListener("click", (e) => {
@@ -15,19 +105,6 @@ sidebar.addEventListener("click", (e) => {
         sections.forEach(section => {
             section.style.display = section.style.display === "none" ? "block" : "none";
         });
-    }
-
-    const section = e.target.closest(".section");
-    if (section) {
-        document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-        section.classList.add("active");
-
-        const sectionName = section.dataset.section;
-        contentMain.innerHTML = `
-            <h1>${sectionName}</h1>
-            <p>This is the lesson for ${sectionName}.</p>
-            <p>Here you'll find videos, text, questions, and more.</p>
-        `;
     }
 });
 
@@ -45,4 +122,3 @@ document.querySelector(".dropdown").addEventListener("mouseover", async () => {
         }
     }
 });
-})

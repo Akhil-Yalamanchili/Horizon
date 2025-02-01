@@ -22,7 +22,7 @@
     <div class="logoBarProfile" id="profileBtn">
         <div style="display: flex;">
             <div style="flex-direction: column;">
-                <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;">PROFILE</p>  
+                <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;" id = "profileName">PROFILE</p>  
                 <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
             </div>
             <img style="width: 40px; margin-left: 25px;" src="crown-removebg-preview.png">
@@ -36,38 +36,11 @@
         <div class="dropdown">
             <span class="dropdownbtn">Select Your Course!</span>
             <div class="dropdownContent">
-                <a href="#">AP Bio</a>
-                <a href="#">AP Physics</a>
-                <a href="#">AP Lang</a>
             </div>
         </div>
     </div>
    
     <div class="sideBarContent" id="sidebar">
-        <div class="unit">
-            <p>Unit 1: <span class="unitText">A world of physics</span></p>
-            <div class="section" data-section="Motion">
-                Section 1: <span class="sectionText">Motion</span>
-            </div>
-            <div class="section" data-section="Acceleration">
-                Section 2: <span class="sectionText">Acceleration</span>
-            </div>
-            <div class="section" data-section="Velocity">
-                Section 3: <span class="sectionText">Velocity</span>
-            </div>
-        </div>
-        <div class="unit">
-            <p>Unit 2: <span class="unitText">Solving in 3D</span></p>
-            <div class="section" data-section="Shapes on a Plane">
-                Section 1: <span class="sectionText">Shapes on a Plane</span>
-            </div>
-            <div class="section" data-section="Shapes on an Incline">
-                Section 2: <span class="sectionText">Shapes on an Incline</span>
-            </div>
-            <div class="section" data-section="Working Friction">
-                Section 3: <span class="sectionText">Working Friction</span>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -83,5 +56,38 @@
 
 <script src="scripts.js">
 
+</script>
+<script type="module">
+     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
+
+
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCltfwKYqiLk5r8VC91O7ncfunWJnropEo",
+    authDomain: "horizon-academy-1c3cb.firebaseapp.com",
+    projectId: "horizon-academy-1c3cb",
+    storageBucket: "horizon-academy-1c3cb.firebasestorage.app",
+    messagingSenderId: "223692815318",
+    appId: "1:223692815318:web:bcff95bbf2856f5fdc0277",
+    measurementId: "G-B4CFZNT15F"
+  };
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+ const doc = await getDocFromCache(user);
+
+    try {
+
+  // Document was found in the cache. If no cached document exists,
+  // an error will be returned to the 'catch' block below.
+alert("Cached document data:", doc.data());
+} catch (e) {
+  alert("Error getting cached document:", e);
+}
 </script>
 </html>
