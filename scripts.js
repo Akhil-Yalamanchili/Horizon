@@ -22,7 +22,6 @@ fetch('horizonCourseData(2024-2025).txt')
             courses[course][unit][section].push({ topic, text });
         });
 
-        // Populate the course dropdown
         Object.keys(courses).forEach(course => {
             const courseOption = document.createElement('a');
             courseOption.classList.add('courseOption');
@@ -31,21 +30,18 @@ fetch('horizonCourseData(2024-2025).txt')
             courseDropdown.appendChild(courseOption);
         });
 
-        // Event listener for course selection
         courseDropdown.addEventListener('click', (e) => {
             const selectedCourse = e.target.dataset.course;
             if (selectedCourse) {
-                // Set active class on selected course
                 document.querySelectorAll('.courseOption').forEach(option => option.classList.remove('active'));
                 e.target.classList.add('active');
 
-                sidebar.innerHTML = ''; // Clear the sidebar
-                contentMain.innerHTML = ''; // Clear the main content
+                sidebar.innerHTML = '';
+                contentMain.innerHTML = ''; 
 
                 const units = courses[selectedCourse];
                 let unitIndex = 1;
                 Object.keys(units).forEach(unit => {
-                    // Create and append unit element in sidebar
                     const unitElement = document.createElement('div');
                     unitElement.classList.add('unit');
                     unitElement.dataset.unit = unit;
@@ -55,7 +51,6 @@ fetch('horizonCourseData(2024-2025).txt')
                     const sections = units[unit];
                     let sectionIndex = 1;
                     Object.keys(sections).forEach(section => {
-                        // Create and append section element in sidebar
                         const sectionElement = document.createElement('div');
                         sectionElement.classList.add('section');
                         sectionElement.dataset.section = section;
@@ -70,7 +65,6 @@ fetch('horizonCourseData(2024-2025).txt')
             }
         });
 
-        // Event listener for section selection
         sidebar.addEventListener('click', (e) => {
             const sectionElement = e.target.closest('.section');
             if (sectionElement) {
@@ -94,10 +88,8 @@ fetch('horizonCourseData(2024-2025).txt')
     })
     .catch(error => alert(error));
 
-// DOM Elements
 const sidebar = document.getElementById("sidebar");
 
-// Event Listeners for Course and Section Interaction
 sidebar.addEventListener("click", (e) => {
     const unit = e.target.closest(".unit");
     if (unit && !e.target.classList.contains("section")) {
@@ -112,7 +104,6 @@ document.getElementById("profileBtn").addEventListener("click", () => {
     window.location.href = "login.html";
 });
 
-// Add Hover Listener for Dropdown
 document.querySelector(".dropdown").addEventListener("mouseover", async () => {
     if (currentUser) {
         const userDoc = await db.collection("users").doc(currentUser.uid).get();
