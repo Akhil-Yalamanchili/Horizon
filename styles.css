@@ -2,13 +2,15 @@ body {
     font-family: Helvetica, Sans-Serif;
     overflow-x: hidden;
     max-width: 100%;
+    display: flex;
+    background-color: rgb(227, 240, 250);
 }
 .logoBarMain{
     display: flex;
     position: absolute;
     top: 0;
     left: 1px;
-    background-color: rgb(0, 93, 136);
+    background-color: rgb(40, 43, 73);
     width: 100%;
     height: 13%;
     align-items: center;
@@ -28,37 +30,38 @@ body {
 }
 .logoBarLogo{
     position: absolute;
-    right: 50%;
+    right: 90%;
     font-size: 20px;
     font-weight: 600;
     display: flex;
+    top: -10px;
 }
-.logoBarExplore{
+
+.sideBarMain{
     position: absolute;
-    right: 85%;
-    font-size: 20px;
-    font-weight: 600;
-}
-.sidebarMain{
-    width: 100%;
+    top: 15%;
+    left: 1%;
+    width: 20%;
+    height: 80%;
 }
 .sideBarHead {
     background-color: rgb(40, 43, 73);
-    position: absolute;
-    left: 1%;
-    top: 15%;
-    width: 20%;
-    height: 15%;
+    width: 100%;
+    height: 21%;
     line-height: 10px;
     margin: 0;
     color: white;
     font-weight: 800;
     font-size: 24px;
     border-radius: 20px 20px 0 0;
+    padding-top: 5px;
+    display: flex;
+    display: block;
+    justify-content: center;
 }
 .dropdownbtn {
     color: white;
-    border-color: rgb(90, 185, 230);
+    border-color: rgb(90, 127, 230);
     font-size: 12px;
     font-weight: 400px;
     border: solid;
@@ -72,19 +75,21 @@ body {
   
   .dropdown {
     position: relative;
-    display: inline-block;
+    display: block;
     width: 100%;
     text-align: center;
+    justify-content: center;
   }
   
   .dropdownContent {
     position: absolute;
-    left: 20%;
-    margin-top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
     border-radius: 10px;
     display: none;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 160px; /* Ensures proper size */
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     font-size: 12px;
@@ -98,23 +103,31 @@ body {
     font-size: 12px;
   }
   
-  .dropdownContent a:hover {background-color: #f1f1f1}
+.dropdownContent a:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  
+}
+
+.dropdownContent a:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.dropdownContent a:last-child {
+  border-radius: 0 0 10px 10px;
+}
   
   .dropdown:hover .dropdownContent {
     display: block;
     color: black;
+    border-radius: 10px;
   }
   
-  .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-  }
+
 .sideBarContent {
-    background-color: rgb(90, 185, 230);
-    width: 20%;
-    position: absolute;
-    left: 1%;
-    top: 30%;
-    height: 65%;
+    background-color: rgb(143, 188, 230);
+    width: 97.7%;
+    height: 79%;
     border-radius: 0 0 20px 20px;
     overflow: auto;
     padding: 3px;
@@ -167,12 +180,8 @@ body {
     font-weight: 400;
 }
 .contentMain {
-    position: absolute;
-    left: 20%;
-    top: 13%;
-    height: 83%;
-    width: 79%;
-    background-color: white;
+    margin-left: 20%;
+    margin-top: 8%;
     padding-left: 35px;
     padding-top: 20px;
 }
