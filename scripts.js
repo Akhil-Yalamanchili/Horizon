@@ -35,9 +35,9 @@ fetch('horizonCourseData(2024-2025).txt')
             if (selectedCourse) {
                 document.querySelectorAll('.courseOption').forEach(option => option.classList.remove('active'));
                 e.target.classList.add('active');
-
+                
                 sidebar.innerHTML = '';
-                contentMain.innerHTML = ''; 
+                contentMain.innerHTML = '';
 
                 const units = courses[selectedCourse];
                 let unitIndex = 1;
@@ -80,7 +80,32 @@ fetch('horizonCourseData(2024-2025).txt')
                     const topicElement = document.createElement('div');
                     topicElement.classList.add('topic');
                     topicElement.dataset.topic = topic;
-                    topicElement.innerHTML = `<h3>${topic}</h3><p>${text}</p>`;
+                    topicElement.innerHTML = `<h3>${topic}</h3>`;
+
+                    //image
+                    if (text.endsWith('.jpg') || text.endsWith('.png') || text.endsWith('.gif')) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = `courseImages/${text.trim()}`;
+                        imgElement.alt = topic;
+                        topicElement.appendChild(imgElement);
+                    } //youtbue
+                    else if (text.includes('youtube.com') || text.includes('youtu.be')) {
+                        const videoId = text.split('v=')[1] || text.split('/').pop();
+                        const iframeElement = document.createElement('iframe');
+                        iframeElement.width = "560";
+                        iframeElement.height = "315";
+                        iframeElement.src = `https://www.youtube.com/embed/${videoId}`;
+                        iframeElement.frameBorder = "0";
+                        iframeElement.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                        iframeElement.allowFullscreen = true;
+                        topicElement.appendChild(iframeElement);
+                    } 
+                    else {
+                        const textElement = document.createElement('p');
+                        textElement.textContent = text;
+                        topicElement.appendChild(textElement);
+                    }
+
                     contentMain.appendChild(topicElement);
                 });
             }
