@@ -1,178 +1,223 @@
 body {
-    font-family: Helvetica, Sans-Serif;
-    overflow-x: hidden;
-    max-width: 100%;
+  font-family: Helvetica, Sans-Serif;
+  overflow-x: hidden;
+  max-width: 100%;
 }
-.logoBarMain{
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 1px;
-    background-color: rgb(0, 93, 136);
-    width: 100%;
-    height: 13%;
-    align-items: center;
-    color: white;
+
+.logoBarMain {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 1px;
+  background-color: rgb(0, 93, 136);
+  width: 100%;
+  height: 13%;
+  align-items: center;
+  color: white;
 }
-.logoBarProfile{
-    position: absolute;
-    right: 8%;
-    font-size: 20px;
-    font-weight: 600;
-    border-style: solid;
-    padding: 0;
-    height: 60px;
-    border-radius: 500px;
-    margin-top: 0px;
-    width: 150px;
+
+.logoBarProfile {
+  position: absolute;
+  right: 8%;
+  font-size: 20px;
+  font-weight: 600;
+  border-style: solid;
+  padding: 0;
+  height: 60px;
+  border-radius: 500px;
+  margin-top: 0px;
+  width: 150px;
 }
-.logoBarLogo{
-    position: absolute;
-    right: 50%;
-    font-size: 20px;
-    font-weight: 600;
-    display: flex;
+
+.logoBarLogo {
+  position: absolute;
+  right: 50%;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
 }
-.logoBarExplore{
-    position: absolute;
-    right: 85%;
-    font-size: 20px;
-    font-weight: 600;
+
+.logoBarExplore {
+  position: absolute;
+  right: 85%;
+  font-size: 20px;
+  font-weight: 600;
 }
-.sidebarMain{
-    width: 100%;
+
+.success-indicator {
+  width: 30px;
+  height: 20px;
+  margin-left: 3px;
+  vertical-align: middle;
 }
+
+.sideBarMain {
+  width: 100%;
+}
+
 .sideBarHead {
-    background-color: rgb(40, 43, 73);
-    position: absolute;
-    left: 1%;
-    top: 15%;
-    width: 20%;
-    height: 15%;
-    line-height: 10px;
-    margin: 0;
-    color: white;
-    font-weight: 800;
-    font-size: 24px;
-    border-radius: 20px 20px 0 0;
+  background-color: rgb(40, 43, 73);
+  position: absolute;
+  left: 1%;
+  top: 15%;
+  width: 20%;
+  height: 15%;
+  line-height: 10px;
+  margin: 0;
+  color: white;
+  font-weight: 800;
+  font-size: 24px;
+  border-radius: 20px 20px 0 0;
 }
+
 .dropdownbtn {
-    color: white;
-    border-color: rgb(90, 185, 230);
-    font-size: 12px;
-    font-weight: 400px;
-    border: solid;
-    cursor: pointer;
-    text-align:center;
-    position: relative;
-    border-width: 2px;
-    padding: 5px;
-    border-radius: 7px;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .dropdownContent {
-    position: absolute;
-    left: 20%;
-    margin-top: 5px;
-    border-radius: 10px;
-    display: none;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    font-size: 12px;
-  }
-  
-  .dropdownContent a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 12px;
-  }
-  
-  .dropdownContent a:hover {background-color: #f1f1f1}
-  
-  .dropdown:hover .dropdownContent {
-    display: block;
-    color: black;
-  }
-  
-  .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-  }
-.sideBarContent {
-    background-color: rgb(90, 185, 230);
-    width: 20%;
-    position: absolute;
-    left: 1%;
-    top: 30%;
-    height: 65%;
-    border-radius: 0 0 20px 20px;
-    overflow: auto;
-    padding: 3px;
+  color: white;
+  border-color: rgb(90, 185, 230);
+  font-size: 12px;
+  font-weight: 400px;
+  border: solid;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  border-width: 2px;
+  padding: 5px;
+  border-radius: 7px;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.dropdownContent {
+  position: absolute;
+  left: 20%;
+  margin-top: 5px;
+  border-radius: 10px;
+  display: none;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  font-size: 12px;
+}
+
+.dropdownContent a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 12px;
+}
+
+.dropdownContent a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+  color: black;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+.sideBarContent {
+  background-color: rgb(90, 185, 230);
+  width: 20%;
+  position: absolute;
+  left: 1%;
+  top: 30%;
+  height: 65%;
+  border-radius: 0 0 20px 20px;
+  overflow: auto;
+  padding: 3px;
+}
+
 .sideBarContent::-webkit-scrollbar {
-    display: none;
-    border-radius: 20px;
-  }
+  display: none;
+  border-radius: 20px;
+}
+
 .unit {
-    text-align: left; 
-    line-height: 100%; 
-    width: 200px;
-    font-size: 21px;
-    margin-left: 18px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-    font-weight: 700;
+  text-align: left;
+  line-height: 100%;
+  width: 200px;
+  font-size: 21px;
+  margin-left: 18px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  font-weight: 700;
 }
 
 .unit:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .unitText {
-    text-align: left; 
-    line-height: 100%; 
-    width: 200px;
-    font-size: 16px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-    font-weight: 400;
+  text-align: left;
+  line-height: 100%;
+  width: 200px;
+  font-size: 16px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  font-weight: 400;
 }
+
 .section {
-    text-align: left; 
-    line-height: 100%; 
-    width:200px; 
-    margin-left: 20px;
-    font-size: 16px;
-    margin-bottom: 0px;
-    margin-top: 12px;
-    font-weight: 600;
+  text-align: left;
+  line-height: 100%;
+  width: 200px;
+  margin-left: 20px;
+  font-size: 16px;
+  margin-bottom: 0px;
+  margin-top: 12px;
+  font-weight: 600;
 }
+
 .sectionText {
-    text-align: left; 
-    line-height: 100%; 
-    width:200px; 
-    font-size: 14px;
-    margin-bottom: 0px;
-    margin-top: 12px;
-    font-weight: 400;
+  text-align: left;
+  line-height: 100%;
+  width: 200px;
+  font-size: 14px;
+  margin-bottom: 0px;
+  margin-top: 12px;
+  font-weight: 400;
 }
+
 .contentMain {
-    position: absolute;
-    left: 20%;
-    top: 13%;
-    height: 83%;
-    width: 79%;
-    background-color: white;
-    padding-left: 35px;
-    padding-top: 20px;
+  position: absolute;
+  left: 20%;
+  top: 13%;
+  height: 83%;
+  width: 79%;
+  background-color: white;
+  padding-left: 35px;
+  padding-top: 20px;
+}
+
+.profileDropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.profileDropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.profileDropdown a:hover {
+  background-color: #ddd;
+}
+
+.logoBarProfile:hover .profileDropdown {
+  display: block;
 }

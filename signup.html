@@ -84,7 +84,7 @@ document.getElementById("signUpBtn").addEventListener("click", async () => {
         await setDoc(doc(db, "users", user.uid), {
             name: name,
             score: 0,
-            unlockedCourses: ["AP Physics"] 
+            unlockedCourses: [] 
         });
 
         alert("Account created successfully!");
