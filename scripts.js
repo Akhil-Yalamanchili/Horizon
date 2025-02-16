@@ -320,6 +320,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 courseOption.textContent = courseName;
                 courseDropdown.appendChild(courseOption);
             });
+                    contentMain.appendChild(topicElement);
+                });
+            }
+        });
+    })
+    .catch(error => alert(error));
+
+const sidebar = document.getElementById("sidebar");
+
+sidebar.addEventListener("click", (e) => {
+    const unit = e.target.closest(".unit");
+    const section = e.target.closest(".section");
+
+    if (unit && !section) { // Ensure we're only toggling when clicking the unit
+        const sections = Array.from(unit.querySelectorAll(".section"));
+        sections.forEach(section => {
+            section.style.display = section.style.display === "none" ? "block" : "none";
+        });
+    }
+});
+
+document.getElementById("profileBtn").addEventListener("click", () => {
+    window.location.href = "login.html";
+});
+
+document.querySelector(".dropdown").addEventListener("mouseover", async () => {
+    if (currentUser) {
+        const userDoc = await db.collection("users").doc(currentUser.uid).get();
+        if (userDoc.exists) {
+            const userData = userDoc.data();
+            updateCourseDropdown(userData.unlockedCourses);
         }
     }
 });
