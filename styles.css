@@ -44,6 +44,7 @@ body {
     left: 1%;
     width: 20%;
     height: 80%;
+}
 
 .logoBarExplore {
   position: absolute;
@@ -59,9 +60,6 @@ body {
   vertical-align: middle;
 }
 
-.sideBarMain {
-  width: 100%;
-}
 
 .sideBarHead {
     background-color: rgb(40, 43, 73);
