@@ -13,45 +13,47 @@
 </head>
 
 <body>
-<div class="logoBarMain">
-    <img style="position: relative; left: 94%; height: 50px;" src="static/threelines.png">
-    <div class="logoBarLogo">
-        <img style="width: 120px; margin-left: 25px;" src="static/logo.png">
+    <div class="logoBarLogo"> <!-- Moved outside of sideBarMain -->
+        <img style="max-width:80px;" src="static/logo.png">
+        <p style="position: relative; height: 30px; line-height: 30px;">Horizon</p>
     </div>
-    <div class="logoBarProfile" id="profileBtn">
-        <div style="display: flex;">
-            <div style="flex-direction: column;">
-                <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;" id="profileName">PROFILE</p>  
-                <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+    <button class="sidebarToggle" id="sidebarToggle">☰</button> <!-- Moved outside of sideBarMain -->
+    <div class="logoBarMain">
+        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="static/moonImage.png"> <!-- Added id -->
+        <div class="logoBarProfile" id="profileBtn">
+            <div style="display: flex;">
+                <div style="flex-direction: column;">
+                    <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;" id="profileName">PROFILE</p>  
+                    <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+                </div>
             </div>
-            <img style="width: 40px; margin-left: 25px;" src="crown-removebg-preview.png">
-        </div>
-        <div class="profileDropdown">
-            <a href="signup.html">Sign Up / Log In</a>
-            <a href="addcourses.html">Add Courses</a>
-        </div>
-    </div>
-</div>
-
-<div class="sideBarMain">
-    <div class="sideBarHead">
-        <p style="text-align: center; display: block;">Courses</p>
-        <div class="dropdown">
-            <span class="dropdownbtn">Select Your Course</span>
-            <div class="dropdownContent">
+            <div class="profileDropdown">
+                <a href="signup.html">Sign Up / Log In</a>
+                <a href="addcourses.html">Add Courses</a>
             </div>
         </div>
+        <div>
+            <input type="text" placeholder="Search " class="searchBar" id="searchBar">
+        </div>
     </div>
-   
-    <div class="sideBarContent" id="sidebar">
-    </div>
-</div>
 
-<div class="contentMain" id="contentMain">
-    <h1>Unit 1</h1>
-    <p>Learn physics</p>
-    <p>Everything with a crown is replaced by the logo once we get the file</p>
-</div>
+    <div class="sideBarMain" id="sideBarMain">
+        <div class="sideBarHead">
+            <div class="dropdown">
+                <span class="dropdownbtn">Select Your Course</span>
+                <div class="dropdownContent">
+                </div>
+            </div>
+        </div>
+        <div class="sideBarContent" id="sidebar">
+        </div>
+    </div>
+
+    <div class="contentMain" id="contentMain">
+        <h1>Welcome to Horizon Academy!</h1>
+        <p>Please sign into your account through the profile section</p>
+    </div>
+
 
 </body>
 

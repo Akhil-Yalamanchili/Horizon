@@ -12,11 +12,29 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 </head>
 
-<body>
-    <div onclick="window.location.href='index.html'">Back to Courses</div>
-    <div class="addCoursesContainer">
+<body style="margin-top: 80px;">
+    <div class="logoBarMain">
+        <img style="position: relative; left: 94%; height: 50px;" src="static/threelines.png">
+        <div class="logoBarLogo">
+            <img style="width: 110px; margin-left: 80px;" src="static/logo.png">
+        </div>
+        <div class="logoBarProfile" id="profileBtn">
+            <div style="display: flex;">
+                <div style="flex-direction: column;">
+                    <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;" id="profileName">PROFILE</p>  
+                    <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+                </div>
+            </div>
+            <div class="profileDropdown">
+                <a href="signup.html">Sign Up / Log In</a>
+                <a href="addcourses.html">Add Courses</a>
+            </div>
+        </div>
+    </div>
+    <div onclick="window.location.href='index.html'" style="margin: 25px;">Back to Courses</div>
+    <div class="addCoursesContainer" style="text-align: center; width: 100vw; margin-right: 18%; margin-top: 25px;">
         <h1>Add Courses</h1>
-        <input type="text" id="courseSearch" placeholder="Search for courses...">
+        <input type="text" id="courseSearch" placeholder="Search for courses..." style="text-align: center;">
         <div id="courseResults"></div>
     </div>
 

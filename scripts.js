@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyCltfwKYqiLk5r8VC91O7ncfunWJnropEo",
         authDomain: "horizon-academy-1c3cb.firebaseapp.com",
@@ -27,7 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const courses = {};
 
                 lines.forEach(line => {
-                    const [course, unit, section, topic, text] = line.split(',');
+                    const parts = line.split(',');
+                    const course = parts[0]?.trim();
+                    const unit = parts[1]?.trim();
+                    const section = parts[2]?.trim();
+                    const topic = parts[3]?.trim();
+                    const text = parts.slice(4).join(',').trim(); // Join the remaining parts to keep the text intact
 
                     if (!courses[course]) {
                         courses[course] = { description: text, units: {} };
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const userCourses = userData.courses || [];
                     console.log('User courses:', userCourses);
                     updateCourseDropdown(userCourses);
-                    handleCourseSelection(userCourses); // Call handleCourseSelection with the user's allowed courses
+                    handleCourseSelection(userCourses);
                 }
             })
             .catch(error => {
@@ -139,8 +143,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const courses = {};
 
                 lines.forEach(line => {
-                    const [course, unit, section, topic, text] = line.split(',');
-
+                    // Split the line into parts, but ensure the last part (text) remains intact
+                    const parts = line.split(',');
+                    const course = parts[0]?.trim();
+                    const unit = parts[1]?.trim();
+                    const section = parts[2]?.trim();
+                    const topic = parts[3]?.trim();
+                    const text = parts.slice(4).join(',').trim(); // Join the remaining parts to keep the text intact
+                
                     if (!courses[course]) {
                         courses[course] = {};
                     }
@@ -179,7 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             unitElement.classList.add('unit');
                             unitElement.dataset.unit = unit;
                             unitElement.innerHTML = `<p>Unit ${unitIndex}: <span class="unitText">${unit}</span></p>`;
-                            sidebar.appendChild(unitElement);
+
+                            const sectionsContainer = document.createElement('div');
+                            sectionsContainer.classList.add('sections'); // Container for sections
+                            unitElement.appendChild(sectionsContainer);
 
                             const sections = units[unit];
                             let sectionIndex = 1;
@@ -188,75 +201,74 @@ document.addEventListener('DOMContentLoaded', () => {
                                 sectionElement.classList.add('section');
                                 sectionElement.dataset.section = section;
                                 sectionElement.innerHTML = `Section ${unitIndex}.${sectionIndex}: <span class="sectionText">${section}</span>`;
-                                unitElement.appendChild(sectionElement);
+                                sectionElement.dataset.course = selectedCourse; // Store the course in the section element
+                                sectionsContainer.appendChild(sectionElement);
 
                                 sectionIndex++;
                             });
 
+                            sidebar.appendChild(unitElement);
                             unitIndex++;
                         });
                     }
                 });
 
                 sidebar.addEventListener('click', (e) => {
+                    const unitElement = e.target.closest('.unit');
+                    if (unitElement) {
+                        // Toggle the expanded state of the clicked unit
+                        unitElement.classList.toggle('expanded');
+                    }
+
                     const sectionElement = e.target.closest('.section');
                     if (sectionElement) {
                         const unitElement = sectionElement.closest('.unit');
-                        const selectedCourse = courseDropdown.querySelector('.courseOption.active').dataset.course;
+                        const selectedCourse = sectionElement.dataset.course; // Retrieve the course from the section element
+                        if (!selectedCourse) {
+                            alert("No active course option found");
+                            return;
+                        }
                         const selectedUnit = unitElement.dataset.unit;
                         const selectedSection = sectionElement.dataset.section;
 
                         const topics = courses[selectedCourse][selectedUnit][selectedSection];
+                        contentMain.innerHTML = `<h1>${selectedSection}</h1>`; // Display section name as a header
 
-                        contentMain.innerHTML = `<h1>${selectedSection}</h1>`;
+                        const displayedTopics = new Set(); // Track displayed topics to avoid duplicates
+
                         topics.forEach(({ topic, text }) => {
-                            const topicElement = document.createElement('div');
-                            topicElement.classList.add('topic');
-                            topicElement.dataset.topic = topic;
-                            topicElement.innerHTML = `<h3>${topic}</h3>`;
-
-                            //image
-                            if (text.endsWith('.jpg') || text.endsWith('.png') || text.endsWith('.gif')) {
-                                const imgElement = document.createElement('img');
-                                imgElement.src = `courseImages/${text.trim()}`;
-                                imgElement.alt = topic;
-                                topicElement.appendChild(imgElement);
-                            } //youtube
-                            else if (text.includes('youtube.com') || text.includes('youtu.be')) {
-                                const videoId = text.split('v=')[1] || text.split('/').pop();
-                                const iframeElement = document.createElement('iframe');
-                                iframeElement.width = "560";
-                                iframeElement.height = "315";
-                                iframeElement.src = `https://www.youtube.com/embed/${videoId}`;
-                                iframeElement.frameBorder = "0";
-                                iframeElement.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-                                iframeElement.allowFullscreen = true;
-                                topicElement.appendChild(iframeElement);
-                            } 
-                            else {
-                                const textElement = document.createElement('p');
-                                textElement.textContent = text;
-                                topicElement.appendChild(textElement);
+                            if (!displayedTopics.has(topic)) {
+                                // Add the topic header only once
+                                const topicElement = document.createElement('div');
+                                topicElement.classList.add('topic');
+                                topicElement.dataset.topic = topic;
+                                topicElement.innerHTML = `<h3>${topic}</h3>`;
+                                contentMain.appendChild(topicElement);
+                                displayedTopics.add(topic);
                             }
 
-                            contentMain.appendChild(topicElement);
+                            // Add the related content below the topic
+                            const textElement = document.createElement('p');
+                            textElement.textContent = text;
+
+                            // Append the content to the last topic element
+                            const lastTopicElement = contentMain.querySelector(`.topic[data-topic="${topic}"]`);
+                            lastTopicElement.appendChild(textElement);
                         });
                     }
                 });
             })
             .catch(error => {
-                console.error('Error handling course selection:', error);
+                alert('Error handling course selection: ' + error);
             });
     }
 
-    // Event listener for authentication state changes
     auth.onAuthStateChanged(user => {
         if (user) {
             displayUserCourses();
         }
     });
 
-    // Initialize course selection handling if on the main page
     if (document.getElementById("contentMain") && document.getElementById("sidebar")) {
         const user = auth.currentUser;
         if (user) {
@@ -276,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Event listener for profile button click
     const profileBtn = document.getElementById("profileBtn");
     if (profileBtn) {
         profileBtn.addEventListener("click", () => {
@@ -285,24 +296,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event listener for dropdown hover
     const dropdown = document.querySelector(".dropdown");
     if (dropdown) {
+        let dropdownInitialized = false;
         dropdown.addEventListener("mouseover", async () => {
-            console.log('Dropdown hover');
-            const currentUser = auth.currentUser;
-            if (currentUser) {
-                const userDoc = await db.collection("users").doc(currentUser.uid).get();
-                if (userDoc.exists) {
-                    const userData = userDoc.data();
-                    console.log('User courses on dropdown hover:', userData.courses);
-                    updateCourseDropdown(userData.courses || []);
+            if (!dropdownInitialized) {
+                console.log('Dropdown hover');
+                const currentUser = auth.currentUser;
+                if (currentUser) {
+                    const userDoc = await db.collection("users").doc(currentUser.uid).get();
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        console.log('User courses on dropdown hover:', userData.courses);
+                        updateCourseDropdown(userData.courses || []);
+                        dropdownInitialized = true;
+                    }
                 }
             }
         });
     }
 
-    // Function to update course dropdown
     function updateCourseDropdown(unlockedCourses) {
         const courseDropdown = document.querySelector('.dropdownContent');
         if (!courseDropdown) return;
@@ -322,4 +335,83 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    const sideBarMain = document.getElementById('sideBarMain');
+    const contentMain = document.getElementById('contentMain');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    let isSidebarLocked = true; // Default state: sidebar locked
+    let isHoveringSidebar = false; // Track if the user is hovering over the sidebar
+
+    // Toggle sidebar state
+    sidebarToggle.addEventListener('click', () => {
+        isSidebarLocked = !isSidebarLocked;
+        if (isSidebarLocked) {
+            sideBarMain.classList.remove('collapsed');
+            sideBarMain.classList.remove('overlay');
+            contentMain.classList.remove('expanded');
+            contentMain.classList.add('locked');
+            contentMain.style.left = '20%'; // Reset to align with the sidebar
+            contentMain.style.width = 'calc(55% - 20px)'; // Reserve space for the chatbot
+        } else {
+            sideBarMain.classList.add('collapsed');
+            contentMain.classList.remove('locked');
+            contentMain.classList.add('expanded');
+            contentMain.style.left = '0'; // Expand to the left edge of the screen
+            contentMain.style.width = 'calc(80% - 20px)'; // Expand only to the left of the reserved chatbot space
+        }
+    });
+
+    // Handle hover effect for the toggle icon
+    sidebarToggle.addEventListener('mouseenter', () => {
+        if (!isSidebarLocked) {
+            sideBarMain.classList.add('overlay');
+        }
+    });
+
+    sidebarToggle.addEventListener('mouseleave', () => {
+        if (!isSidebarLocked && !isHoveringSidebar) {
+            sideBarMain.classList.remove('overlay');
+        }
+    });
+
+    // Handle hover effect for the sidebar itself
+    sideBarMain.addEventListener('mouseenter', () => {
+        if (!isSidebarLocked) {
+            isHoveringSidebar = true;
+            sideBarMain.classList.add('overlay');
+        }
+    });
+
+    sideBarMain.addEventListener('mouseleave', () => {
+        if (!isSidebarLocked) {
+            isHoveringSidebar = false;
+            sideBarMain.classList.remove('overlay');
+        }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    let isLightMode = true; // Default to light mode
+
+    themeToggle.addEventListener('click', () => {
+        if (isLightMode) {
+            // Switch to night mode
+            document.documentElement.style.setProperty('--background-color', 'rgb(30, 30, 45)');
+            document.documentElement.style.setProperty('--sidebar-background', 'rgb(50, 50, 70)');
+            document.documentElement.style.setProperty('--text-color', 'white');
+            document.documentElement.style.setProperty('--logo-bar-background', 'rgb(20, 20, 35)');
+            document.documentElement.style.setProperty('--toggle-background', 'rgb(40, 40, 60)');
+            document.documentElement.style.setProperty('--content-background', 'rgb(40, 40, 60)'); // Dark background for contentMain
+            document.documentElement.style.setProperty('--content-text-color', 'white'); // Light text for contentMain
+        } else {
+            // Switch to light mode
+            document.documentElement.style.setProperty('--background-color', 'rgb(227, 240, 250)');
+            document.documentElement.style.setProperty('--sidebar-background', 'rgb(143, 188, 230)');
+            document.documentElement.style.setProperty('--text-color', 'black');
+            document.documentElement.style.setProperty('--logo-bar-background', 'rgb(40, 43, 73)');
+            document.documentElement.style.setProperty('--toggle-background', 'rgb(63, 67, 107)');
+            document.documentElement.style.setProperty('--content-background', 'white'); // Light background for contentMain
+            document.documentElement.style.setProperty('--content-text-color', 'black'); // Dark text for contentMain
+        }
+        isLightMode = !isLightMode; // Toggle the mode
+    });
 });
