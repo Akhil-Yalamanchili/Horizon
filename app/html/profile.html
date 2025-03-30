@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Dashboard | New Horizon Research Academy</title>
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="icon" href="../static/logo.png" type="image/icon type">
+    <link rel="stylesheet" href="./../styles/styles.css">
+    <link rel="icon" href="./../../static/app images/logo.png" type="image/icon type">
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
@@ -14,11 +14,11 @@
 
 <body style="margin-top: 60px;">
     <div class="logoBarLogo">
-        <img style="max-width:80px;" src="../static/logo.png" alt="Horizon Logo">
+        <img style="max-width:80px;" src="./../../static/app images/logo.png">
         <p style="position: relative; height: 30px; line-height: 30px;">Horizon</p>
     </div>
     <div class="logoBarMain">
-        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="../static/moonImage.png" alt="Theme Toggle">
+        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="./../../static/app images/moonImage.png">
         <div class="logoBarProfile" id="profileBtn">
             <div style="display: flex;">
                 <div style="flex-direction: column;">
@@ -27,17 +27,60 @@
                 </div>
             </div>
             <div class="profileDropdown">
-                <a href="signup.html">Sign Up / Log In</a>
-                <a href="addcourses.html">Add Courses</a>
+                <a href="./signup.html">Sign Up / Log In</a>
+                <a href="./addcourses.html">Add Courses</a>
             </div>
         </div>
         <div>
             <input type="text" placeholder="Search " class="searchBar" id="searchBar" style="height: 30px; margin: 5px 0;">
         </div>
     </div>
-    <div onclick="window.location.href='index.html'" style="margin: 25px; margin-top: 60px; position: absolute;">Back to Courses</div>
-    
-    <script src="../scripts/scripts.js"></script>
+    <div onclick="window.location.href='./../../index.html'" class="backToHome">Back to Home</div>
+
+    <div class="profileDashboard" style="display: flex; height: 100vh;">
+        <div class="profileLeft" style="flex: 1; overflow-y: auto;">
+            <h1 id="userName" style="text-align: center; margin-top: 60px;">User Name</h1>
+            <div class="profileStats">
+                <p>Score: <span>PLACEHOLDER</span></p>
+                <p>Courses Completed: <span>PLACEHOLDER</span></p>
+                <p>Badges: <span>PLACEHOLDER</span></p>
+                <p>Member Since: <span>PLACEHOLDER</span></p>
+                <p>Subscription: <span>PLACEHOLDER</span></p>
+            </div>
+        </div>
+        <div class="profileRight" style="flex: 2; overflow-y: auto;">
+            <div class="profileNavBar" style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 10px;">
+                <button class="navButton active" data-page="activityPage" onclick="showPage('activityPage')">Activity</button>
+                <button class="navButton" data-page="coursesPage" onclick="showPage('coursesPage')">Courses</button>
+            </div>
+            <div class="profileContent">
+                <div id="activityPage" class="profilePage active">
+                    <h2>Activity</h2>
+                    <div class="progressGraph">[Graph Placeholder]</div>
+                    <p>Streak: <span>PLACEHOLDER</span> days</p>
+                </div>
+                <div id="coursesPage" class="profilePage" style="display: none;">
+                    <h2>Your Courses</h2>
+                    <div class="courseList" id="userCourseList">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.profilePage');
+            pages.forEach(page => {
+                page.style.display = page.id === pageId ? 'block' : 'none';
+            });
+            const buttons = document.querySelectorAll('.navButton');
+            buttons.forEach(button => {
+                button.classList.toggle('active', button.dataset.page === pageId);
+            });
+        }
+    </script>
+    <script src="./../scripts/scripts.js"></script>
 </body>
 
 </html>

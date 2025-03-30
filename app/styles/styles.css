@@ -376,3 +376,155 @@ body {
   font-size: 16px;
   font-weight: 600;
 }
+
+.profileDashboard {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.profileLeft {
+    width: 35vw;
+    height: 100vh;
+    background-color: var(--sidebar-background);
+    color: var(--text-color);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.profileLeft h1 {
+    text-align: center;
+    margin-top: 50px; /* Lower the user's name */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.profileStats p {
+    font-size: 16px;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.profileRight {
+    width: 65vw;
+    height: 100vh;
+    background-color: var(--content-background);
+    color: var(--content-text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.profileNavBar {
+    display: flex;
+    background-color: var(--logo-bar-background);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navButton {
+    flex: 1;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.navButton.active {
+    background-color: var(--toggle-background);
+    border-radius: 5px;
+}
+
+.navButton:hover {
+    background-color: var(--sidebar-head-background);
+}
+
+.profileContent {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: var(--sidebar-background); /* Different color from navbar */
+    border-top: 2px solid var(--logo-bar-background); /* Add a border for separation */
+}
+
+.profilePage {
+    display: none;
+}
+
+.profilePage.active {
+    display: block;
+}
+
+.progressGraph {
+    height: 200px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.courseList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.courseItem {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.progressBar {
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #007bff;
+}
+
+.deleteCourseBtn {
+    align-self: flex-start;
+    padding: 5px 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteCourseBtn:hover {
+    background-color: #ff1a1a;
+}
+
+.backToHome {
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    background-color: var(--logo-bar-background);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.backToHome:hover {
+    background-color: var(--sidebar-head-background);
+}

@@ -113,32 +113,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initializeCourses();
 
-    function addCourse(courseName, buttonElement) {
-        console.log('Adding course:', courseName);
+    async function addCourseToFirebase(courseName) {
         const user = auth.currentUser;
-        if (user) {
-            const userRef = db.collection('users').doc(user.uid);
-            userRef.update({
-                courses: firebase.firestore.FieldValue.arrayUnion(courseName)
-            })
-            .then(() => {
-                const successIndicator = buttonElement.nextElementSibling;
-                if (successIndicator) {
-                    successIndicator.style.display = 'inline';
-                }
-            })
-            .catch(error => {
-                console.error('Error adding course:', error);
-            });
-        } else {
+        if (!user) {
             alert('You need to be logged in to add courses.');
+            return;
+        }
+
+        try {
+            const userRef = db.collection('users').doc(user.uid);
+            await userRef.update({
+                courses: firebase.firestore.FieldValue.arrayUnion(courseName)
+            });
+            alert(`Course "${courseName}" added successfully!`);
+        } catch (error) {
+            console.error('Error adding course to Firebase:', error);
+            alert('Failed to add course. Please try again.');
+        }
+    }
+
+    async function deleteCourseFromFirebase(courseName) {
+        const user = auth.currentUser;
+        if (!user) {
+            alert('You need to be logged in to delete courses.');
+            return;
+        }
+
+        try {
+            const userRef = db.collection('users').doc(user.uid);
+            await userRef.update({
+                courses: firebase.firestore.FieldValue.arrayRemove(courseName)
+            });
+            alert(`Course "${courseName}" deleted successfully!`);
+            loadUserCourses(); // Refresh the course list
+        } catch (error) {
+            console.error('Error deleting course from Firebase:', error);
+            alert('Failed to delete course. Please try again.');
         }
     }
 
     document.addEventListener('click', (e) => {
         if (e.target && e.target.classList.contains('addCourseBtn')) {
             const courseName = e.target.getAttribute('data-course-name');
-            addCourse(courseName, e.target);
+            addCourseToFirebase(courseName);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('deleteCourseBtn')) {
+            const courseName = e.target.getAttribute('data-course-name');
+            deleteCourseFromFirebase(courseName);
         }
     });
 
@@ -289,9 +313,51 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    async function loadUserCourses() {
+        const user = auth.currentUser;
+        if (!user) {
+            console.error('No user is logged in.');
+            return;
+        }
+
+        try {
+            const userRef = db.collection('users').doc(user.uid);
+            const doc = await userRef.get();
+            if (doc.exists) {
+                const userData = doc.data();
+                const courses = userData.courses || [];
+                const courseList = document.getElementById('userCourseList');
+                courseList.innerHTML = '';
+
+                if (courses.length === 0) {
+                    courseList.innerHTML = '<p>No courses added yet.</p>';
+                    return;
+                }
+
+                courses.forEach(courseName => {
+                    const courseItem = document.createElement('div');
+                    courseItem.classList.add('courseItem');
+                    courseItem.innerHTML = `
+                        <p>Course Name: <span>${courseName}</span></p>
+                        <div class="progressBar">
+                            <div class="progress" style="width: 0%;"></div>
+                        </div>
+                        <button class="deleteCourseBtn" data-course-name="${courseName}">Delete</button>
+                    `;
+                    courseList.appendChild(courseItem);
+                });
+            } else {
+                console.error('User document does not exist.');
+            }
+        } catch (error) {
+            console.error('Error fetching user courses:', error);
+        }
+    }
+
     auth.onAuthStateChanged(user => {
         if (user) {
             displayUserCourses();
+            loadUserCourses();
         }
     });
 
@@ -318,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (profileBtn) {
         profileBtn.addEventListener("click", () => {
             console.log('Profile button clicked');
-            window.location.href = "profile.html";
+            window.location.href = "/app/html/profile.html";
         });
     }
 
@@ -434,5 +500,22 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.style.setProperty('--content-text-color', 'black'); 
         }
         isLightMode = !isLightMode;
+    });
+
+    const navButtons = document.querySelectorAll('.navButton');
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('deleteCourseBtn')) {
+            const courseItem = e.target.closest('.courseItem');
+            courseItem.remove();
+            alert('Course deleted (placeholder)');
+        }
     });
 });
