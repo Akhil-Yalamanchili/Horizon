@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up | New Horizon Research Academy</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="static/logo.png" type="image/icon type">
+    <link rel="stylesheet" href="./../styles/styles.css">
+    <link rel="icon" href="./../../static/app images/logo.png" type="image/icon type">
 
 <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js"></script>
-<script src="auth.js"></script>
 
 </head>
 <body style="overflow: hidden; height: 100vh; background-position: center; background-repeat: no-repeat; background-image: linear-gradient(45deg, rgb(28, 145, 241), #5f2daf); background-size: cover; font-family: Georgia, 'Times New Roman', Times, serif">
 
     <p style="cursor: pointer; position: absolute; left: 40px; top: 20px; color: white; font-weight: 700; font-size: 18px;" id="backtohome">BACK TO HOME</p>
-    <img style="max-width: 40px; max-height: 20px; position: relative; left: 200px; top: 30px; cursor:pointer;" id="backtohome2" src="static/whitearrow.png">
+    <img style="max-width: 40px; max-height: 20px; position: relative; left: 200px; top: 30px; cursor:pointer;" id="backtohome2" src="./../../static/app images/whitearrow.png">
 
 <div class="authContainer" style="height: 400px; -webkit-transform: translateY(+20%); -ms-transform: translateY(+20%); transform: translateY(+20%); text-align: center; position: relative; background-color: white; width: 450px; margin-left: auto; margin-right: auto; border-radius: 10px;">
     <div class="authForms">
         <div class="form" style = "display: flex; flex-direction: column; row-gap: 8px;" id="logInForm">
             <h2 style="margin-bottom: 0px;">Sign Up</h2>
-            <p style="font-size: 14px; margin-bottom: 0px; text-align: left; width: 310px; position: relative; margin-left: auto; margin-right: auto;">Already Have An Account? <span><a href="login.html">Login Instead</a></span></p>
+            <p style="font-size: 14px; margin-bottom: 0px; text-align: left; width: 310px; position: relative; margin-left: auto; margin-right: auto;">Already Have An Account? <span><a href="./login.html">Login Instead</a></span></p>
             <div>
                 <p style=" margin-top: 0px; text-align: left; width: 310px; position: relative; margin-left: auto; margin-right: auto; margin-bottom: 3px; font-weight: 700; margin-top: 15px;">Username</p>
                 <input style="width: 300px; position: relative; margin-left: auto; margin-right: auto; margin-bottom: 0px;" type="email" id="signUpName" placeholder="Choose Your Username" required>
@@ -98,10 +97,10 @@ document.getElementById("signUpBtn").addEventListener("click", async () => {
 </script>
 <script>
     document.getElementById("backtohome").addEventListener("click", () => {
-        window.location.href="index.html";
+        window.location.href="./../../../index.html";
     })
     document.getElementById("backtohome2").addEventListener("click", () => {
-        window.location.href="index.html";
+        window.location.href="./../../../index.html";
     })
 </script>
 </html>

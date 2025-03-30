@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | New Horizon Research Academy</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="static/logo.png" type="image/icon type">
+    <link rel="stylesheet" href="app/styles/styles.css">
+    <link rel="icon" href="static/app images/logo.png" type="image/icon type">
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 </head>
 
 <body>
-    <div class="logoBarLogo"> <!-- Moved outside of sideBarMain -->
-        <img style="max-width:80px;" src="static/logo.png">
+    <div class="logoBarLogo">
+        <img style="max-width:80px;" src="static/app images/logo.png" alt="Horizon Logo">
         <p style="position: relative; height: 30px; line-height: 30px;">Horizon</p>
     </div>
-    <button class="sidebarToggle" id="sidebarToggle">☰</button> <!-- Moved outside of sideBarMain -->
+    <button class="sidebarToggle" id="sidebarToggle">☰</button>
     <div class="logoBarMain">
-        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="static/moonImage.png"> <!-- Added id -->
+        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="static/app images/moonImage.png" alt="Theme Toggle">
         <div class="logoBarProfile" id="profileBtn">
             <div style="display: flex;">
                 <div style="flex-direction: column;">
@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="profileDropdown">
-                <a href="signup.html">Sign Up / Log In</a>
-                <a href="addcourses.html">Add Courses</a>
+                <a href="app/html/signup.html">Sign Up / Log In</a>
+                <a href="app/html/addcourses.html">Add Courses</a>
             </div>
         </div>
         <div>
@@ -54,10 +54,9 @@
         <p>Please sign into your account through the profile section</p>
     </div>
 
-
 </body>
 
-<script src="scripts.js"></script>
+<script src="app/scripts/scripts.js"></script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";

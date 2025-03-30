@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Courses | New Horizon Research Academy</title>
+    <link rel="stylesheet" href="./../styles/styles.css">
+    <link rel="icon" href="./../../static/app images/logo.png" type="image/icon type">
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+</head>
+
+<body style="margin-top: 60px;">
+    <div class="logoBarLogo">
+        <img style="max-width:80px;" src="./../../static/app images/logo.png">
+        <p style="position: relative; height: 30px; line-height: 30px;">Horizon</p>
+    </div>
+    <div class="logoBarMain">
+        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="./../../static/app images/moonImage.png">
+        <div class="logoBarProfile" id="profileBtn">
+            <div style="display: flex;">
+                <div style="flex-direction: column;">
+                    <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;" id="profileName">PROFILE</p>  
+                    <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+                </div>
+            </div>
+            <div class="profileDropdown">
+                <a href="./signup.html">Sign Up / Log In</a>
+                <a href="./addcourses.html">Add Courses</a>
+            </div>
+        </div>
+        <div>
+            <input type="text" placeholder="Search " class="searchBar" id="searchBar" style="height: 30px; margin: 5px 0;">
+        </div>
+    </div>
+    <div onclick="window.location.href='./../../index.html'" style="margin: 25px; margin-top: 60px; position: absolute;">Back to Courses</div>
+    <div class="addCoursesContainer" style="text-align: center; width: 60vw; margin: 25px auto;">
+        <h1 style="margin-bottom: 10px;">Add Courses</h1>
+        <input type="text" id="courseSearch" placeholder="Search for courses..." style="text-align: center; width: 50%; padding: 10px; font-size: 16px; margin-bottom: 20px;">
+        <div id="courseResults" style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; /* Reduce gap between boxes */
+            max-height: calc(100vh - 250px); /* Ensure container fits within the viewport */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        "></div>
+    </div>
+    <script src="./../scripts/scripts.js"></script>
+</body>
+
+</html>

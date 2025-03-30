@@ -1,12 +1,13 @@
 :root {
-  --background-color: rgb(227, 240, 250); /* Default light mode background */
-  --sidebar-background: rgb(231, 243, 255); /* Default light mode sidebar */
-  --text-color: black; /* Default light mode text */
-  --logo-bar-background: rgb(40, 43, 73); /* Default logo bar background */
-  --toggle-background: rgb(63, 67, 107); /* Default toggle button background */
-  --content-background: white; /* Default contentMain background */
-  --content-text-color: black; /* Default contentMain text color */
-  --sidebar-head-background: rgb(60, 63, 93); /* Default sideBarHead background */
+   /*all of these are default colors*/
+  --background-color: rgb(227, 240, 250);
+  --sidebar-background: rgb(231, 243, 255);
+  --text-color: black;
+  --logo-bar-background: rgb(40, 43, 73);
+  --toggle-background: rgb(63, 67, 107); 
+  --content-background: white; 
+  --content-text-color: black; 
+  --sidebar-head-background: rgb(60, 63, 93);
 }
 
 body {
@@ -16,9 +17,9 @@ body {
   display: flex;
   background-color: var(--background-color);
   color: var(--text-color);
-  height: 100vh; /* Lock the height to the viewport */
-  margin: 0; /* Remove default margins */
-  overflow: hidden; /* Prevent page scrolling */
+  height: 100vh;
+  margin: 0; 
+  overflow: hidden;
 }
 
 .logoBarMain {
@@ -47,28 +48,28 @@ body {
 }
 
 .logoBarLogo {
-  background-color: var(--logo-bar-background); /* Match the background color of logoBarMain */
+  background-color: var(--logo-bar-background);
   width: 20%;
-  position: fixed; /* Always fixed in the top-left corner */
+  position: fixed;
   display: flex;
   align-items: left;
   justify-content: center;
-  left: 0; /* Align to the left edge */
-  top: 0; /* Align to the top edge */
-  height: 12%; /* Match the height of logoBarMain */
-  z-index: 4; /* Ensure it stays above other elements */
+  left: 0;
+  top: 0;
+  height: 12%;
+  z-index: 4;
   text-align: left;
 }
 
 .logoBarLogo img {
-  width: 80px; /* Adjust size as needed */
+  width: 80px; 
 }
 
 .logoBarLogo p {
-  color: white; /* Ensure text is visible on the dark background */
+  color: white;
   font-size: 26px;
   font-weight: 600;
-  margin-left: 10px; /* Add spacing between the logo and text */
+  margin-left: 10px;
 }
 
 .sideBarMain {
@@ -77,22 +78,22 @@ body {
   left: 0%;
   width: 20%;
   height: 100%;
-  transition: transform 0.3s ease, width 0.3s ease; /* Smooth transition for collapsing */
-  z-index: 2; /* Ensure it overlays content when expanded */
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 2; 
   background-color: var(--sidebar-background);
 }
 
 .sideBarMain.collapsed {
-  transform: translateX(-100%); /* Hide the sidebar completely */
+  transform: translateX(-100%);
 }
 
 .sideBarMain.overlay {
-  transform: translateX(0); /* Show the sidebar when hovered */
-  width: 20%; /* Restore full width */
+  transform: translateX(0);
+  width: 20%;
 }
 
 .sidebarToggle {
-  position: fixed; /* Keep the toggle icon fixed in place */
+  position: fixed;
   top: 13%;
   left: 10px;
   width: 30px;
@@ -102,15 +103,15 @@ body {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 5; /* Ensure it stays above the logoBarLogo */
+  z-index: 5; 
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effect */
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .sidebarToggle:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  transform: scale(1.1);
   background-color: rgb(60, 63, 93);
 }
 
@@ -130,16 +131,14 @@ body {
 
 .sideBarHead {
   position: relative;
-  background-color: var(--sidebar-head-background); /* Use variable for background color */
+  background-color: var(--sidebar-head-background);
   top: 12%;
   width: 100%;
   height: 10%;
-  line-height: 10px;
   margin: 0;
   color: white;
   font-weight: 800;
   font-size: 24px;
-  padding-top: 5px;
   display: flex;
   display: block;
   justify-content: center;
@@ -164,7 +163,7 @@ body {
   cursor: pointer;
   text-align: center;
   position: relative;
-  top: 10px;
+  top: 5px;
   border-width: 2px;
   padding: 5px;
   border-radius: 7px;
@@ -239,20 +238,20 @@ body {
   margin-bottom: 12px;
   margin-top: 12px;
   font-weight: 700;
-  cursor: pointer; /* Indicate that the unit is clickable */
+  cursor: pointer;
 }
 
 .unit:hover {
-  text-decoration: underline; /* Visual feedback for hover */
+  text-decoration: underline;
 }
 
 .unit .sections {
-  display: none; /* Hide sections by default */
-  margin-left: 20px; /* Indent sections for better hierarchy */
+  display: none;
+  margin-left: 20px; 
 }
 
 .unit.expanded .sections {
-  display: block; /* Show sections when the unit is expanded */
+  display: block; 
 }
 
 .unit:hover {
@@ -295,27 +294,27 @@ body {
 }
 
 .contentMain {
-  position: absolute; /* Ensure it stays in place */
-  color: var(--content-text-color); /* Use variable for text color */
-  top: 12%; /* Adjust based on your layout */
-  left: 20%; /* Align it next to the sidebar */
-  width: calc(55% - 20px); /* Reserve space for the chatbot */
-  height: 88%; /* Adjust height to fit within the viewport */
-  margin: 0; /* Remove any default margins */
-  padding: 20px; /* Add some padding for content spacing */
-  overflow: auto; /* Enable scrolling within this section */
-  background-color: var(--content-background); /* Use variable for background color */
-  transition: margin-left 0.3s ease, width 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Smooth transition for adjustments */
+  position: absolute;
+  color: var(--content-text-color);
+  top: 12%;
+  left: 20%;
+  width: calc(55% - 20px);
+  height: 88%;
+  margin: 0;
+  padding: 20px;
+  overflow: auto;
+  background-color: var(--content-background);
+  transition: margin-left 0.3s ease, width 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .contentMain.expanded {
-  left: 0; /* Fill the left side of the page */
-  width: calc(80% - 20px); /* Expand to the left of the reserved chatbot space */
+  left: 0;
+  width: calc(80% - 20px);
 }
 
 .contentMain.locked {
-  left: 20%; /* Sidebar is locked, content adjusts */
-  width: calc(55% - 20px); /* Reserve space for the chatbot */
+  left: 20%;
+  width: calc(55% - 20px);
 }
 
 .profileDropdown {
@@ -352,24 +351,24 @@ body {
   background-color: var(--toggle-background);
   display: flex;
   align-items: center;
-  padding-left: 20px; /* Add padding to the left for the search icon */
+  padding-left: 20px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .searchBar::placeholder {
   color: var(--text-color);
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }
 
 .chatbotPlaceholder {
   position: fixed;
   top: 12%;
   right: 0;
-  width: 20%; /* Reserve 20% of the screen for the chatbot */
-  height: 88%; /* Match the height of contentMain */
-  background-color: var(--sidebar-background); /* Match the sidebar background */
-  border-left: 2px solid var(--logo-bar-background); /* Add a border to separate it visually */
-  z-index: 3; /* Ensure it stays above other elements */
+  width: 20%;
+  height: 88%;
+  background-color: var(--sidebar-background);
+  border-left: 2px solid var(--logo-bar-background);
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;

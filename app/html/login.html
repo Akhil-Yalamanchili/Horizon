@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | New Horizon Research Academy</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="static/logo.png" type="image/icon type">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../static/logo.png" type="image/icon type">
 
 <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
@@ -15,7 +15,7 @@
 <body style="overflow: hidden; height: 100vh; background-position: center; background-repeat: no-repeat; background-image: linear-gradient(45deg, rgb(28, 145, 241), #5f2daf); background-size: cover; font-family: Georgia, 'Times New Roman', Times, serif">
 
     <p style="cursor: pointer; position: absolute; left: 40px; top: 20px; color: white; font-weight: 700; font-size: 18px;" id="backtohome">BACK TO HOME</p>
-    <img style="max-width: 40px; max-height: 20px; position: relative; left: 200px; top: 30px; cursor:pointer;" id="backtohome2" src="static/whitearrow.png">
+    <img style="max-width: 40px; max-height: 20px; position: relative; left: 200px; top: 30px; cursor:pointer;" id="backtohome2" src="../static/whitearrow.png" alt="Back Arrow">
 
 
 <div class="authContainer" style="height: 400px; -webkit-transform: translateY(+20%); -ms-transform: translateY(+20%); transform: translateY(+20%); text-align: center; position: relative; background-color: white; width: 450px; margin-left: auto; margin-right: auto; border-radius: 10px;">
@@ -94,4 +94,5 @@ document.getElementById("logInBtn").addEventListener("click", async () => {
         window.location.href="index.html";
     })
 </script>
+<script src="../scripts/scripts.js"></script>
 </html>

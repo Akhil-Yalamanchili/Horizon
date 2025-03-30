@@ -13,59 +13,106 @@ document.addEventListener('DOMContentLoaded', () => {
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Function to search for courses
-    function searchCourses(query) {
+    let allCourses = {};
+
+    function initializeCourses() {
+        fetch('./../../static/courseData/horizonCourseInfo(2025-2026)')
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                lines.forEach(line => {
+                    const parts = line.split('|');
+                    const courseName = parts[0]?.trim();
+                    const description = parts[1]?.trim();
+                    const recommendedAge = parts[2]?.trim();
+                    const level = parts[3]?.trim();
+                    const prerequisites = parts[4]?.trim();
+
+                    if (courseName) {
+                        allCourses[courseName] = {
+                            description,
+                            recommendedAge,
+                            level,
+                            prerequisites
+                        };
+                    }
+                });
+
+                displayCourses(allCourses);
+            })
+            .catch(error => {
+                console.error('Error fetching courses:', error);
+            });
+    }
+
+    function displayCourses(courses, query = '') {
         const courseResults = document.getElementById('courseResults');
         if (!courseResults) return;
         courseResults.innerHTML = '';
 
-        fetch('horizonCourseData(2024-2025).txt')
-            .then(response => response.text())
-            .then(data => {
-                const lines = data.split('\n');
-                const courses = {};
+        const filteredCourses = Object.keys(courses).filter(courseName =>
+            courseName.toLowerCase().includes(query.toLowerCase())
+        );
 
-                lines.forEach(line => {
-                    const parts = line.split(',');
-                    const course = parts[0]?.trim();
-                    const unit = parts[1]?.trim();
-                    const section = parts[2]?.trim();
-                    const topic = parts[3]?.trim();
-                    const text = parts.slice(4).join(',').trim(); // Join the remaining parts to keep the text intact
+        if (filteredCourses.length === 0) {
+            const noCoursesMessage = document.createElement('p');
+            noCoursesMessage.textContent = "No courses found... maybe check our course list page?";
+            noCoursesMessage.style.cssText = `
+                font-size: 16px;
+                color: #555;
+                text-align: center;
+                margin-top: 20px;
+            `;
+            courseResults.appendChild(noCoursesMessage);
+            return;
+        }
 
-                    if (!courses[course]) {
-                        courses[course] = { description: text, units: {} };
-                    }
-                    if (!courses[course].units[unit]) {
-                        courses[course].units[unit] = {};
-                    }
-                    if (!courses[course].units[unit][section]) {
-                        courses[course].units[unit][section] = [];
-                    }
-                    courses[course].units[unit][section].push({ topic, text });
-                });
+        filteredCourses.forEach(courseName => {
+            const course = courses[courseName];
+            const courseBox = document.createElement('div');
+            courseBox.classList.add('courseBox');
+            courseBox.style.cssText = `
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 10px; /* Reduce padding */
+                width: 200px; /* Reduce width */
+                text-align: center;
+                background-color: #f9f9f9;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduce shadow */
+                font-size: 12px; /* Reduce font size */
+            `;
 
-                Object.keys(courses).forEach(courseName => {
-                    if (courseName.toLowerCase().includes(query.toLowerCase())) {
-                        const course = courses[courseName];
-                        const courseElement = document.createElement('div');
-                        courseElement.classList.add('courseResult');
-                        courseElement.innerHTML = `
-                            <h3>${courseName}</h3>
-                            <p>${course.description}</p>
-                            <button class="addCourseBtn" data-course-name="${courseName}">Add Course</button>
-                            <img src="static/green-arrow.png" class="success-indicator" style="display: none;">
-                        `;
-                        courseResults.appendChild(courseElement);
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Error searching courses:', error);
-            });
+            courseBox.innerHTML = `
+                <h3 style="margin-bottom: 5px; font-size: 14px;">${courseName}</h3> <!-- Smaller font size -->
+                <p style="margin-bottom: 5px; color: #555;">${course.description}</p>
+                <p style="margin-bottom: 5px; color: #777;">Age: ${course.recommendedAge}</p>
+                <p style="margin-bottom: 5px; color: #777;">Level: ${course.level}</p>
+                <p style="margin-bottom: 10px; color: #777;">Prerequisites: ${course.prerequisites}</p>
+                <button class="addCourseBtn" data-course-name="${courseName}" style="
+                    padding: 5px 10px; /* Reduce button size */
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 12px; /* Smaller font size */
+                ">Add Course</button>
+            `;
+
+            courseResults.appendChild(courseBox);
+        });
     }
 
-    // Function to add a course to the user's account
+    const courseSearchInput = document.getElementById('courseSearch');
+    if (courseSearchInput) {
+        courseSearchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            displayCourses(allCourses, query);
+        });
+    }
+
+    initializeCourses();
+
     function addCourse(courseName, buttonElement) {
         console.log('Adding course:', courseName);
         const user = auth.currentUser;
@@ -88,20 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Event listener for course search input
-    const courseSearchInput = document.getElementById('courseSearch');
-    if (courseSearchInput) {
-        courseSearchInput.addEventListener('input', (e) => {
-            const query = e.target.value;
-            if (query) {
-                searchCourses(query);
-            } else {
-                document.getElementById('courseResults').innerHTML = '';
-            }
-        });
-    }
-
-    // Event delegation for add course buttons
     document.addEventListener('click', (e) => {
         if (e.target && e.target.classList.contains('addCourseBtn')) {
             const courseName = e.target.getAttribute('data-course-name');
@@ -109,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Function to display courses based on the user's account
     function displayUserCourses() {
         const user = auth.currentUser;
         if (user) {
@@ -130,9 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to handle course selection and display
     function handleCourseSelection(allowedCourses) {
-        fetch('horizonCourseData(2024-2025).txt')
+        fetch('./../../static/courseData/horizonCourseData(2024-2025).txt')
             .then(response => response.text())
             .then(data => {
                 const contentMain = document.getElementById("contentMain");
@@ -143,14 +174,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const courses = {};
 
                 lines.forEach(line => {
-                    // Split the line into parts, but ensure the last part (text) remains intact
-                    const parts = line.split(',');
+                    const parts = line.split('|');
                     const course = parts[0]?.trim();
                     const unit = parts[1]?.trim();
                     const section = parts[2]?.trim();
                     const topic = parts[3]?.trim();
-                    const text = parts.slice(4).join(',').trim(); // Join the remaining parts to keep the text intact
-                
+                    const text = parts.slice(4).join('|').trim();
+
                     if (!courses[course]) {
                         courses[course] = {};
                     }
@@ -191,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             unitElement.innerHTML = `<p>Unit ${unitIndex}: <span class="unitText">${unit}</span></p>`;
 
                             const sectionsContainer = document.createElement('div');
-                            sectionsContainer.classList.add('sections'); // Container for sections
+                            sectionsContainer.classList.add('sections');
                             unitElement.appendChild(sectionsContainer);
 
                             const sections = units[unit];
@@ -201,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 sectionElement.classList.add('section');
                                 sectionElement.dataset.section = section;
                                 sectionElement.innerHTML = `Section ${unitIndex}.${sectionIndex}: <span class="sectionText">${section}</span>`;
-                                sectionElement.dataset.course = selectedCourse; // Store the course in the section element
+                                sectionElement.dataset.course = selectedCourse;
                                 sectionsContainer.appendChild(sectionElement);
 
                                 sectionIndex++;
@@ -216,14 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 sidebar.addEventListener('click', (e) => {
                     const unitElement = e.target.closest('.unit');
                     if (unitElement) {
-                        // Toggle the expanded state of the clicked unit
                         unitElement.classList.toggle('expanded');
                     }
 
                     const sectionElement = e.target.closest('.section');
                     if (sectionElement) {
                         const unitElement = sectionElement.closest('.unit');
-                        const selectedCourse = sectionElement.dataset.course; // Retrieve the course from the section element
+                        const selectedCourse = sectionElement.dataset.course; 
                         if (!selectedCourse) {
                             alert("No active course option found");
                             return;
@@ -232,13 +261,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         const selectedSection = sectionElement.dataset.section;
 
                         const topics = courses[selectedCourse][selectedUnit][selectedSection];
-                        contentMain.innerHTML = `<h1>${selectedSection}</h1>`; // Display section name as a header
+                        contentMain.innerHTML = `<h1>${selectedSection}</h1>`;
 
-                        const displayedTopics = new Set(); // Track displayed topics to avoid duplicates
+                        const displayedTopics = new Set();
 
                         topics.forEach(({ topic, text }) => {
                             if (!displayedTopics.has(topic)) {
-                                // Add the topic header only once
                                 const topicElement = document.createElement('div');
                                 topicElement.classList.add('topic');
                                 topicElement.dataset.topic = topic;
@@ -247,11 +275,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 displayedTopics.add(topic);
                             }
 
-                            // Add the related content below the topic
                             const textElement = document.createElement('p');
                             textElement.textContent = text;
 
-                            // Append the content to the last topic element
                             const lastTopicElement = contentMain.querySelector(`.topic[data-topic="${topic}"]`);
                             lastTopicElement.appendChild(textElement);
                         });
@@ -339,10 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sideBarMain = document.getElementById('sideBarMain');
     const contentMain = document.getElementById('contentMain');
     const sidebarToggle = document.getElementById('sidebarToggle');
-    let isSidebarLocked = true; // Default state: sidebar locked
-    let isHoveringSidebar = false; // Track if the user is hovering over the sidebar
+    let isSidebarLocked = true; 
+    let isHoveringSidebar = false;
 
-    // Toggle sidebar state
     sidebarToggle.addEventListener('click', () => {
         isSidebarLocked = !isSidebarLocked;
         if (isSidebarLocked) {
@@ -350,18 +375,17 @@ document.addEventListener('DOMContentLoaded', () => {
             sideBarMain.classList.remove('overlay');
             contentMain.classList.remove('expanded');
             contentMain.classList.add('locked');
-            contentMain.style.left = '20%'; // Reset to align with the sidebar
-            contentMain.style.width = 'calc(55% - 20px)'; // Reserve space for the chatbot
+            contentMain.style.left = '20%'; 
+            contentMain.style.width = 'calc(55% - 20px)'; 
         } else {
             sideBarMain.classList.add('collapsed');
             contentMain.classList.remove('locked');
             contentMain.classList.add('expanded');
-            contentMain.style.left = '0'; // Expand to the left edge of the screen
-            contentMain.style.width = 'calc(80% - 20px)'; // Expand only to the left of the reserved chatbot space
+            contentMain.style.left = '0'; 
+            contentMain.style.width = 'calc(80% - 20px)'; 
         }
     });
 
-    // Handle hover effect for the toggle icon
     sidebarToggle.addEventListener('mouseenter', () => {
         if (!isSidebarLocked) {
             sideBarMain.classList.add('overlay');
@@ -374,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Handle hover effect for the sidebar itself
     sideBarMain.addEventListener('mouseenter', () => {
         if (!isSidebarLocked) {
             isHoveringSidebar = true;
@@ -390,28 +413,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const themeToggle = document.getElementById('themeToggle');
-    let isLightMode = true; // Default to light mode
+    let isLightMode = true; 
 
     themeToggle.addEventListener('click', () => {
         if (isLightMode) {
-            // Switch to night mode
             document.documentElement.style.setProperty('--background-color', 'rgb(30, 30, 45)');
             document.documentElement.style.setProperty('--sidebar-background', 'rgb(50, 50, 70)');
             document.documentElement.style.setProperty('--text-color', 'white');
             document.documentElement.style.setProperty('--logo-bar-background', 'rgb(20, 20, 35)');
             document.documentElement.style.setProperty('--toggle-background', 'rgb(40, 40, 60)');
-            document.documentElement.style.setProperty('--content-background', 'rgb(40, 40, 60)'); // Dark background for contentMain
-            document.documentElement.style.setProperty('--content-text-color', 'white'); // Light text for contentMain
+            document.documentElement.style.setProperty('--content-background', 'rgb(40, 40, 60)'); 
+            document.documentElement.style.setProperty('--content-text-color', 'white');
         } else {
-            // Switch to light mode
             document.documentElement.style.setProperty('--background-color', 'rgb(227, 240, 250)');
-            document.documentElement.style.setProperty('--sidebar-background', 'rgb(143, 188, 230)');
+            document.documentElement.style.setProperty('--sidebar-background', 'rgb(231, 243, 255)');
             document.documentElement.style.setProperty('--text-color', 'black');
             document.documentElement.style.setProperty('--logo-bar-background', 'rgb(40, 43, 73)');
             document.documentElement.style.setProperty('--toggle-background', 'rgb(63, 67, 107)');
-            document.documentElement.style.setProperty('--content-background', 'white'); // Light background for contentMain
-            document.documentElement.style.setProperty('--content-text-color', 'black'); // Dark text for contentMain
+            document.documentElement.style.setProperty('--content-background', 'white'); 
+            document.documentElement.style.setProperty('--content-text-color', 'black'); 
         }
-        isLightMode = !isLightMode; // Toggle the mode
+        isLightMode = !isLightMode;
     });
 });

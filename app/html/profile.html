@@ -4,20 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Courses | New Horizon Research Academy</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="static/logo.png" type="image/icon type">
+    <title>Profile Dashboard | New Horizon Research Academy</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../static/logo.png" type="image/icon type">
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 </head>
 
-<body style="margin-top: 80px;">
+<body style="margin-top: 60px;">
+    <div class="logoBarLogo">
+        <img style="max-width:80px;" src="../static/logo.png" alt="Horizon Logo">
+        <p style="position: relative; height: 30px; line-height: 30px;">Horizon</p>
+    </div>
     <div class="logoBarMain">
-        <img style="position: relative; left: 94%; height: 50px;" src="static/threelines.png">
-        <div class="logoBarLogo">
-            <img style="width: 110px; margin-left: 80px;" src="static/logo.png">
-        </div>
+        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="../static/moonImage.png" alt="Theme Toggle">
         <div class="logoBarProfile" id="profileBtn">
             <div style="display: flex;">
                 <div style="flex-direction: column;">
@@ -30,15 +31,13 @@
                 <a href="addcourses.html">Add Courses</a>
             </div>
         </div>
+        <div>
+            <input type="text" placeholder="Search " class="searchBar" id="searchBar" style="height: 30px; margin: 5px 0;">
+        </div>
     </div>
-    <div onclick="window.location.href='index.html'" style="margin: 25px;">Back to Courses</div>
-    <div class="addCoursesContainer" style="text-align: center; width: 100vw; margin-right: 18%; margin-top: 25px;">
-        <h1>Add Courses</h1>
-        <input type="text" id="courseSearch" placeholder="Search for courses..." style="text-align: center;">
-        <div id="courseResults"></div>
-    </div>
-
-    <script src="scripts.js"></script>
+    <div onclick="window.location.href='index.html'" style="margin: 25px; margin-top: 60px; position: absolute;">Back to Courses</div>
+    
+    <script src="../scripts/scripts.js"></script>
 </body>
 
 </html>
