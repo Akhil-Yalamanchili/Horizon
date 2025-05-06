@@ -13,47 +13,48 @@
 </head>
 
 <body>
-    <div class="logoBarLogo">
-        <img style="max-width:80px;" src="static/app images/logo.png" alt="Horizon Logo">
-        <p style="position: relative; height: 30px; line-height: 30px;">Horizon</p>
-    </div>
-    <button class="sidebarToggle" id="sidebarToggle">☰</button>
-    <div class="logoBarMain">
-        <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="static/app images/moonImage.png" alt="Theme Toggle">
-        <div class="logoBarProfile" id="profileBtn">
-            <div style="display: flex;">
-                <div style="flex-direction: column;">
-                    <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;" id="profileName">PROFILE</p>  
-                    <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+    <div class="responsiveContainer">
+        <div class="logoBarLogo">
+            <img style="max-width:80px;" src="static/app images/logo.png" alt="Horizon Logo">
+            <p style="position: relative; height: 30px; line-height: 30px;">Horizon</p>
+        </div>
+        <button class="sidebarToggle" id="sidebarToggle">☰</button>
+        <div class="logoBarMain">
+            <img id="themeToggle" style="position: relative; left: 94%; height: 50px;" src="static/app images/moonImage.png" alt="Theme Toggle">
+            <div class="logoBarProfile" id="profileBtn">
+                <div style="display: flex;">
+                    <div style="flex-direction: column;">
+                        <p style="margin-top:0px; font-size: 15px; font-weight: 600; position: relative; top: 15px; text-align: left; left: 16px;" id="profileName">PROFILE</p>  
+                        <p style="font-size: 12px; text-align:left; position:relative; left: 16px;">Credits</p>
+                    </div>
+                </div>
+                <div class="profileDropdown">
+                    <a href="app/html/signup.html">Sign Up / Log In</a>
+                    <a href="app/html/addcourses.html">Add Courses</a>
                 </div>
             </div>
-            <div class="profileDropdown">
-                <a href="app/html/signup.html">Sign Up / Log In</a>
-                <a href="app/html/addcourses.html">Add Courses</a>
+            <div>
+                <input type="text" placeholder="Search " class="searchBar" id="searchBar">
             </div>
         </div>
-        <div>
-            <input type="text" placeholder="Search " class="searchBar" id="searchBar">
-        </div>
-    </div>
 
-    <div class="sideBarMain" id="sideBarMain">
-        <div class="sideBarHead">
-            <div class="dropdown">
-                <span class="dropdownbtn">Select Your Course</span>
-                <div class="dropdownContent">
+        <div class="sideBarMain" id="sideBarMain">
+            <div class="sideBarHead">
+                <div class="dropdown">
+                    <span class="dropdownbtn">Select Your Course</span>
+                    <div class="dropdownContent">
+                    </div>
                 </div>
             </div>
+            <div class="sideBarContent" id="sidebar">
+            </div>
         </div>
-        <div class="sideBarContent" id="sidebar">
+
+        <div class="contentMain" id="contentMain">
+            <h1>Welcome to Horizon Academy!</h1>
+            <p>Please sign into your account through the profile section</p>
         </div>
     </div>
-
-    <div class="contentMain" id="contentMain">
-        <h1>Welcome to Horizon Academy!</h1>
-        <p>Please sign into your account through the profile section</p>
-    </div>
-
 </body>
 
 <script src="app/scripts/scripts.js"></script>

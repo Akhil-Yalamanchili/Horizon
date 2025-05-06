@@ -528,3 +528,94 @@ body {
 .backToHome:hover {
     background-color: var(--sidebar-head-background);
 }
+
+/* Media query for devices with a max width of 768px (tablets and smaller) */
+@media (max-width: 768px) {
+  .logoBarMain {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .logoBarLogo {
+    width: 100%;
+    justify-content: center;
+    height: auto;
+  }
+
+  .logoBarProfile {
+    position: static;
+    margin: 10px auto;
+    width: auto;
+  }
+
+  .sideBarMain {
+    width: 100%;
+    position: static;
+    height: auto;
+  }
+
+  .contentMain {
+    width: 100%;
+    left: 0;
+    padding: 10px;
+  }
+
+  .profileLeft, .profileRight {
+    width: 100%;
+    height: auto;
+  }
+
+  .profileNavBar {
+    flex-direction: column;
+  }
+
+  .navButton {
+    margin-bottom: 5px;
+  }
+
+  .searchBar {
+    width: 90%;
+    left: 5%;
+    top: auto;
+    margin: 10px 0;
+  }
+}
+
+/* Media query for devices with a max width of 480px (phones) */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .logoBarLogo img {
+    width: 60px;
+  }
+
+  .logoBarLogo p {
+    font-size: 20px;
+  }
+
+  .dropdownbtn {
+    font-size: 10px;
+    padding: 3px;
+  }
+
+  .courseBox {
+    width: 100%;
+    font-size: 10px;
+  }
+
+  .profileStats p {
+    font-size: 14px;
+  }
+
+  .progressGraph {
+    height: 150px;
+  }
+
+  .deleteCourseBtn {
+    font-size: 12px;
+    padding: 3px 5px;
+  }
+}

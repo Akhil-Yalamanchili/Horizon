@@ -74,28 +74,29 @@ document.addEventListener('DOMContentLoaded', () => {
             courseBox.style.cssText = `
                 border: 1px solid #ccc;
                 border-radius: 10px;
-                padding: 10px; /* Reduce padding */
-                width: 200px; /* Reduce width */
+                padding: 10px;
+                width: 100%; /* Adjust width for responsiveness */
+                max-width: 200px; /* Limit max width */
                 text-align: center;
                 background-color: #f9f9f9;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduce shadow */
-                font-size: 12px; /* Reduce font size */
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                font-size: 12px;
             `;
 
             courseBox.innerHTML = `
-                <h3 style="margin-bottom: 5px; font-size: 14px;">${courseName}</h3> <!-- Smaller font size -->
+                <h3 style="margin-bottom: 5px; font-size: 14px;">${courseName}</h3>
                 <p style="margin-bottom: 5px; color: #555;">${course.description}</p>
                 <p style="margin-bottom: 5px; color: #777;">Age: ${course.recommendedAge}</p>
                 <p style="margin-bottom: 5px; color: #777;">Level: ${course.level}</p>
                 <p style="margin-bottom: 10px; color: #777;">Prerequisites: ${course.prerequisites}</p>
                 <button class="addCourseBtn" data-course-name="${courseName}" style="
-                    padding: 5px 10px; /* Reduce button size */
+                    padding: 5px 10px;
                     background-color: #007bff;
                     color: white;
                     border: none;
                     border-radius: 5px;
                     cursor: pointer;
-                    font-size: 12px; /* Smaller font size */
+                    font-size: 12px;
                 ">Add Course</button>
             `;
 
@@ -145,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 courses: firebase.firestore.FieldValue.arrayRemove(courseName)
             });
             alert(`Course "${courseName}" deleted successfully!`);
-            loadUserCourses(); // Refresh the course list
+            loadUserCourses();
         } catch (error) {
             console.error('Error deleting course from Firebase:', error);
             alert('Failed to delete course. Please try again.');
